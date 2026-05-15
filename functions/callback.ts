@@ -1,3 +1,5 @@
+import { renderDecapAuthCallback } from './oauth-response';
+
 type PagesEnv = {
   GITHUB_CLIENT_ID?: string;
   GITHUB_CLIENT_SECRET?: string;
@@ -21,34 +23,6 @@ const getCookie = (request: Request, name: string) => {
   const cookie = request.headers.get('cookie') || '';
   const match = cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : '';
-};
-
-const renderCallback = (content: Record<string, string>) => {
-  const payload = JSON.stringify(content);
-  const message = `authorization:github:success:${payload}`;
-
-  return `<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Authorizing...</title>
-  </head>
-  <body>
-    <script>
-      const message = ${JSON.stringify(message)};
-      function sendAuthorization() {
-        if (window.opener) {
-          window.opener.postMessage("authorizing:github", "*");
-          window.opener.postMessage(message, "*");
-          window.close();
-        }
-      }
-      window.addEventListener("message", sendAuthorization, false);
-      sendAuthorization();
-    </script>
-    <p>Authorization complete. You can close this window.</p>
-  </body>
-</html>`;
 };
 
 export const onRequestGet = async ({ request, env }: PagesContext) => {
@@ -93,7 +67,7 @@ export const onRequestGet = async ({ request, env }: PagesContext) => {
     return new Response(escapeHtml(error), { status: 502 });
   }
 
-  return new Response(renderCallback({ token: tokenData.access_token, provider: 'github' }), {
+  return new Response(renderDecapAuthCallback({ token: tokenData.access_token, provider: 'github' }), {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'set-cookie': `${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`,
