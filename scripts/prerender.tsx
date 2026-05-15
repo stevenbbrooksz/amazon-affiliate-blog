@@ -11,6 +11,7 @@ import { GENERATED_GUIDE_FAQS } from '../src/generated/guides.index.generated.ts
 import { withAmazonAffiliateId } from '../src/lib/amazonAffiliate.ts';
 import { setServerGuideDetails } from '../src/guideDetails.ts';
 import { GOOGLE_ANALYTICS_ID } from '../src/generated/site-settings.generated.ts';
+import { buildThemeCss } from '../src/components/SiteTheme.tsx';
 import type { PostDetailData } from '../src/types.ts';
 
 const distDir = path.resolve('dist');
@@ -69,6 +70,10 @@ function renderAnalyticsTags() {
     `      gtag("config", ${JSON.stringify(googleAnalyticsId)}, { send_page_view: false });`,
     '    </script>',
   ].join('\n');
+}
+
+function renderThemeTags() {
+  return `    <style data-site-theme>:root { ${buildThemeCss()} }</style>`;
 }
 
 function buildStructuredData(route: SeoRoute) {
@@ -233,7 +238,7 @@ function renderHtml(template: string, route: SeoRoute) {
   );
 
   return stripDefaultSeo(template)
-    .replace('</head>', `${renderSeoTags(route)}\n${renderAnalyticsTags()}\n  </head>`)
+    .replace('</head>', `${renderSeoTags(route)}\n${renderThemeTags()}\n${renderAnalyticsTags()}\n  </head>`)
     .replace('</body>', `${renderGuideDataScript(route)}\n  </body>`)
     .replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
 }
@@ -291,10 +296,11 @@ async function write404(template: string) {
     .replace(
       '</head>',
       [
-        '    <title>Page Not Found - AMZREVIEWS</title>',
-        '    <meta name="description" content="The requested AMZREVIEWS page could not be found." />',
+        `    <title>Page Not Found - ${escapeHtml(SITE_NAME)}</title>`,
+        `    <meta name="description" content="The requested ${escapeHtml(SITE_NAME)} page could not be found." />`,
         '    <meta name="robots" content="noindex,follow" />',
         `    <link rel="canonical" href="${SITE_URL}/404" />`,
+        renderThemeTags(),
         '  </head>',
       ].join('\n'),
     )

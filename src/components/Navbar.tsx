@@ -4,6 +4,7 @@ import { Search, Menu, ShoppingBag, ChevronDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categoryPath, posts } from '../guides';
 import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
+import { SITE_SETTINGS } from '../generated/site-settings.generated';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ export const Navbar: React.FC = () => {
               <ShoppingBag className="h-6 w-6" />
             </div>
             <span className="text-xl font-black tracking-tight text-gray-900">
-              AMZ<span className="text-orange-600">REVIEWS</span>
+              {SITE_SETTINGS.siteNamePrefix}<span className="text-orange-600">{SITE_SETTINGS.siteNameAccent}</span>
             </span>
           </Link>
           
@@ -108,11 +109,11 @@ export const Navbar: React.FC = () => {
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
             <a 
-              href={withAmazonAffiliateId('https://www.amazon.com/Best-Sellers/zgbs')}
+              href={withAmazonAffiliateId(SITE_SETTINGS.primaryCtaUrl)}
               target="_blank" 
               className="hidden lg:block rounded-full bg-gray-900 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-gray-800"
             >
-              Best Sellers
+              {SITE_SETTINGS.primaryCtaLabel}
             </a>
           </div>
         </div>

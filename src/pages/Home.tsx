@@ -7,6 +7,7 @@ import { categoryPath, guidePath, posts } from '../guides';
 import { PostCard } from '../components/PostCard';
 import { Pagination } from '../components/Pagination';
 import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
+import { SITE_SETTINGS } from '../generated/site-settings.generated';
 
 export const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,12 +46,12 @@ export const Home: React.FC = () => {
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-[var(--site-surface,#fafafa)]">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gray-900 py-20">
         <div className="absolute inset-0 opacity-30">
            <img 
-            src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80" 
+            src={SITE_SETTINGS.heroImageUrl} 
             alt="Hero Background" 
             className="h-full w-full object-cover"
             referrerPolicy="no-referrer"
@@ -65,13 +66,14 @@ export const Home: React.FC = () => {
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-600/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-orange-500 backdrop-blur-sm border border-orange-500/30">
               <Sparkles className="h-4 w-4" />
-              2024 FEATURED GUIDE
+              {SITE_SETTINGS.heroEyebrow}
             </div>
             <h1 className="mb-4 text-4xl font-black text-white sm:text-6xl">
-              Amazon <span className="text-orange-600">Smart Picks.</span>
+              {SITE_SETTINGS.heroTitleAccent ? SITE_SETTINGS.heroTitle.replace(SITE_SETTINGS.heroTitleAccent, '') : SITE_SETTINGS.heroTitle}
+              {SITE_SETTINGS.heroTitleAccent ? <span className="text-orange-600">{SITE_SETTINGS.heroTitleAccent}</span> : null}
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-gray-400">
-              Lifestyle Excellence Lab. We deeply deconstruct every Amazon best-seller to bring you the ultimate buyer's edge.
+              {SITE_SETTINGS.heroDescription}
             </p>
           </motion.div>
         </div>

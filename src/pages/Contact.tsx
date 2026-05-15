@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { SITE_SETTINGS } from '../generated/site-settings.generated';
 
 export const Contact: React.FC = () => {
   return (
@@ -12,10 +13,10 @@ export const Contact: React.FC = () => {
           className="lg:w-1/3"
         >
           <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-5xl">
-            Get in <span className="text-orange-600">Touch</span>
+            {SITE_SETTINGS.contactTitle}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-gray-600">
-            Have a question about a review? Want us to look at a specific product? Or just want to say hi? We'd love to hear from you.
+            {SITE_SETTINGS.contactDescription}
           </p>
         </motion.div>
 

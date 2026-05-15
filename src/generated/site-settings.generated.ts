@@ -1,3 +1,38 @@
 /* This file is generated from content/settings/affiliate.md. Do not edit it directly. */
-export const AMAZON_AFFILIATE_ID = "smartymode-20";
-export const GOOGLE_ANALYTICS_ID = "";
+export const SITE_SETTINGS = {
+  "siteName": "AMZREVIEWS",
+  "siteNamePrefix": "AMZ",
+  "siteNameAccent": "REVIEWS",
+  "siteUrl": "https://amazon-affiliate-blog.pages.dev",
+  "defaultSeoTitle": "AMZREVIEWS - Amazon Affiliate Buying Guides",
+  "defaultSeoDescription": "Amazon affiliate buying guides, product comparisons, and practical recommendations for home office, smart home, outdoor gear, and lifestyle products.",
+  "heroEyebrow": "2024 Featured Guide",
+  "heroTitle": "Amazon Smart Picks.",
+  "heroTitleAccent": "Smart Picks.",
+  "heroDescription": "Lifestyle Excellence Lab. We deeply deconstruct every Amazon best-seller to bring you the ultimate buyer's edge.",
+  "heroImageUrl": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80",
+  "footerDescription": "Your trusted source for honest, in-depth reviews and guides for everything you need for your home, office, and adventures. We test so you can buy with confidence.",
+  "aboutTitle": "About AMZReviews",
+  "aboutBody": "Welcome to AMZReviews, your premier destination for detailed, honest, and expert analysis of the latest products on Amazon. Our mission is simple: to help you make informed purchasing decisions through high-quality reviews and comprehensive buying guides.",
+  "aboutCommitmentTitle": "Our Commitment",
+  "aboutCommitmentBody": "Transparency is at the heart of everything we do. As an Amazon Associate, we earn from qualifying purchases, but our editorial content is never influenced by manufacturers or retailers. Our first priority is always you, the reader.",
+  "contactTitle": "Get in Touch",
+  "contactDescription": "Have a question about a review? Want us to look at a specific product? Or just want to say hi? We'd love to hear from you.",
+  "primaryCtaLabel": "Best Sellers",
+  "primaryCtaUrl": "https://www.amazon.com/Best-Sellers/zgbs",
+  "fontFamily": "Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+  "accent50": "#fff7ed",
+  "accent100": "#ffedd5",
+  "accent200": "#fed7aa",
+  "accent400": "#fb923c",
+  "accent500": "#f97316",
+  "accent600": "#ea580c",
+  "accent700": "#c2410c",
+  "surfaceColor": "#fafafa",
+  "inkColor": "#111827",
+  "darkColor": "#111827",
+  "amazonAffiliateId": "smartymode-20",
+  "googleAnalyticsId": ""
+} as const;
+export const AMAZON_AFFILIATE_ID = SITE_SETTINGS.amazonAffiliateId;
+export const GOOGLE_ANALYTICS_ID = SITE_SETTINGS.googleAnalyticsId;

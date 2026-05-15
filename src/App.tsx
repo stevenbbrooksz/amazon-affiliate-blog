@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Footer } from './components/Footer';
 import { GoogleAnalytics } from './components/GoogleAnalytics';
+import { SiteTheme } from './components/SiteTheme';
 import { Home } from './pages/Home';
 import { PostDetail } from './pages/PostDetail';
 import { Category } from './pages/Category';
@@ -39,8 +40,8 @@ function SeoUpdater() {
   useEffect(() => {
     const seo = getSeoForPath(location.pathname);
     const isNotFound = seo.path !== normalizePath(location.pathname);
-    const title = isNotFound ? 'Page Not Found - AMZREVIEWS' : seo.title;
-    const description = isNotFound ? 'The requested AMZREVIEWS page could not be found.' : seo.description;
+    const title = isNotFound ? `Page Not Found - ${SITE_NAME}` : seo.title;
+    const description = isNotFound ? `The requested ${SITE_NAME} page could not be found.` : seo.description;
     const canonical = isNotFound ? `${SITE_URL}/404` : canonicalUrl(seo.path);
 
     document.title = title;
@@ -85,6 +86,7 @@ function upsertCanonical(href: string) {
 export default function App() {
   return (
     <Router>
+      <SiteTheme />
       <SeoUpdater />
       <GoogleAnalytics />
       <AppContent />

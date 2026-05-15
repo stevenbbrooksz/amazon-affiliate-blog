@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { categoryPath, posts } from '../guides';
+import { SITE_SETTINGS } from '../generated/site-settings.generated';
 
 export const Footer: React.FC = () => {
   const [isLinksOpen, setIsLinksOpen] = useState(false);
@@ -17,10 +18,10 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
           <div className="col-span-1 lg:col-span-2">
             <h2 className="mb-6 text-2xl font-black italic tracking-tighter">
-              AMZ<span className="text-orange-600">REVIEWS</span>
+              {SITE_SETTINGS.siteNamePrefix}<span className="text-orange-600">{SITE_SETTINGS.siteNameAccent}</span>
             </h2>
             <p className="mb-8 max-w-md text-gray-400">
-              Your trusted source for honest, in-depth reviews and guides for everything you need for your home, office, and adventures. We test so you can buy with confidence.
+              {SITE_SETTINGS.footerDescription}
             </p>
 
           </div>
@@ -148,7 +149,7 @@ export const Footer: React.FC = () => {
         
         <div className="mt-20 border-t border-gray-800 pt-10 text-center">
           <p className="text-xs text-gray-500">
-            © 2024 AMZReviews. As an Amazon Associate we earn from qualifying purchases.
+            © 2024 {SITE_SETTINGS.siteName}. As an Amazon Associate we earn from qualifying purchases.
           </p>
         </div>
       </div>

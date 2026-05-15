@@ -17,6 +17,7 @@ import { motion } from 'motion/react';
 import { categoryPath, guidePath, posts } from '../guides';
 import { bountyPromotions } from '../constants/bounties';
 import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
+import { SITE_SETTINGS } from '../generated/site-settings.generated';
 
 const offerIcons = { Zap, Headphones, BookOpen, PlayCircle };
 
@@ -39,7 +40,7 @@ export const NotFound: React.FC = () => {
   const featuredOffers = bountyPromotions;
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-[var(--site-surface,#fafafa)]">
       <section className="bg-gray-950 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 xl:grid-cols-[0.58fr_1.42fr] xl:items-center">
@@ -64,12 +65,12 @@ export const NotFound: React.FC = () => {
                   Back Home
                 </Link>
                 <a
-                  href={withAmazonAffiliateId('https://www.amazon.com/Best-Sellers/zgbs')}
+                  href={withAmazonAffiliateId(SITE_SETTINGS.primaryCtaUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-xs font-black uppercase tracking-widest text-gray-950 transition-all hover:bg-orange-50"
                 >
-                  Best Sellers
+                  {SITE_SETTINGS.primaryCtaLabel}
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>

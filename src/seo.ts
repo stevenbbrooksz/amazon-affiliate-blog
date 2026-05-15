@@ -1,7 +1,8 @@
 import { posts, guidePath, categoryPath } from './guides';
+import { SITE_SETTINGS } from './generated/site-settings.generated';
 
-export const SITE_URL = 'https://amazon-affiliate-blog.pages.dev';
-export const SITE_NAME = 'AMZREVIEWS';
+export const SITE_URL = SITE_SETTINGS.siteUrl;
+export const SITE_NAME = SITE_SETTINGS.siteName;
 
 export type SeoRoute = {
   path: string;
@@ -14,27 +15,27 @@ const categories = [...new Set(posts.map((post) => post.category))].sort();
 export const SEO_ROUTES: SeoRoute[] = [
   {
     path: '/',
-    title: 'AMZREVIEWS - Amazon Affiliate Buying Guides',
-    description: 'Amazon affiliate buying guides, product comparisons, and practical recommendations for home office, smart home, outdoor gear, and lifestyle products.',
+    title: SITE_SETTINGS.defaultSeoTitle,
+    description: SITE_SETTINGS.defaultSeoDescription,
   },
   {
     path: '/about',
-    title: 'About AMZREVIEWS',
-    description: 'Learn how AMZREVIEWS researches Amazon products, writes buying guides, and discloses affiliate relationships.',
+    title: `About ${SITE_NAME}`,
+    description: `Learn how ${SITE_NAME} researches products, writes buying guides, and discloses affiliate relationships.`,
   },
   {
     path: '/contact',
-    title: 'Contact AMZREVIEWS',
-    description: 'Contact AMZREVIEWS for editorial questions, affiliate corrections, product submissions, and partnership inquiries.',
+    title: `Contact ${SITE_NAME}`,
+    description: `Contact ${SITE_NAME} for editorial questions, affiliate corrections, product submissions, and partnership inquiries.`,
   },
   ...categories.map((category) => ({
     path: categoryPath(category),
-    title: `${category} Guides - AMZREVIEWS`,
+    title: `${category} Guides - ${SITE_NAME}`,
     description: `Browse Amazon affiliate buying guides and product recommendations in ${category}.`,
   })),
   ...posts.map((post) => ({
     path: guidePath(post.id),
-    title: `${post.title} - AMZREVIEWS`,
+    title: `${post.title} - ${SITE_NAME}`,
     description: post.excerpt,
   })),
 ];

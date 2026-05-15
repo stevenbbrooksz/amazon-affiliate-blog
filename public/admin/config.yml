@@ -18,9 +18,40 @@ collections:
     label: Begin OS Settings
     files:
       - name: affiliate
-        label: Site Tracking & Affiliate
+        label: Site Design & Settings
         file: content/settings/affiliate.md
         fields:
+          - { label: Site name, name: siteName, widget: string }
+          - { label: Logo prefix text, name: siteNamePrefix, widget: string, required: false }
+          - { label: Logo accent text, name: siteNameAccent, widget: string, required: false }
+          - { label: Site URL, name: siteUrl, widget: string }
+          - { label: Default SEO title, name: defaultSeoTitle, widget: string }
+          - { label: Default SEO description, name: defaultSeoDescription, widget: text }
+          - { label: Hero eyebrow, name: heroEyebrow, widget: string }
+          - { label: Hero title, name: heroTitle, widget: string }
+          - { label: Hero highlighted title text, name: heroTitleAccent, widget: string, required: false }
+          - { label: Hero description, name: heroDescription, widget: text }
+          - { label: Hero background image URL, name: heroImageUrl, widget: string }
+          - { label: Footer description, name: footerDescription, widget: text }
+          - { label: About title, name: aboutTitle, widget: string }
+          - { label: About body, name: aboutBody, widget: text }
+          - { label: About commitment title, name: aboutCommitmentTitle, widget: string }
+          - { label: About commitment body, name: aboutCommitmentBody, widget: text }
+          - { label: Contact title, name: contactTitle, widget: string }
+          - { label: Contact description, name: contactDescription, widget: text }
+          - { label: Primary button label, name: primaryCtaLabel, widget: string }
+          - { label: Primary button URL, name: primaryCtaUrl, widget: string }
+          - { label: Font family, name: fontFamily, widget: string }
+          - { label: Accent 50, name: accent50, widget: color }
+          - { label: Accent 100, name: accent100, widget: color }
+          - { label: Accent 200, name: accent200, widget: color }
+          - { label: Accent 400, name: accent400, widget: color }
+          - { label: Accent 500, name: accent500, widget: color }
+          - { label: Accent 600, name: accent600, widget: color }
+          - { label: Accent 700, name: accent700, widget: color }
+          - { label: Page background, name: surfaceColor, widget: color }
+          - { label: Text color, name: inkColor, widget: color }
+          - { label: Dark section color, name: darkColor, widget: color }
           - label: Amazon Affiliate ID
             name: amazonAffiliateId
             widget: string

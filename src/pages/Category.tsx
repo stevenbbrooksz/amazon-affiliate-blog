@@ -37,7 +37,7 @@ export const Category: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-[var(--site-surface,#fafafa)]">
       <div className="bg-gray-900 py-20 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div

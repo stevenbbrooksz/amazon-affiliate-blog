@@ -17,7 +17,8 @@
 @layer base {
   body {
     @apply antialiased text-gray-900 bg-white;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--site-font, 'Inter', system-ui, -apple-system, sans-serif);
+    color: var(--site-ink, #111827);
   }
 }
 
