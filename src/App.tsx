@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { Navbar } from './components/Navbar';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Footer } from './components/Footer';
+import { GoogleAnalytics } from './components/GoogleAnalytics';
 import { Home } from './pages/Home';
 import { PostDetail } from './pages/PostDetail';
 import { Category } from './pages/Category';
@@ -85,6 +86,7 @@ export default function App() {
   return (
     <Router>
       <SeoUpdater />
+      <GoogleAnalytics />
       <AppContent />
     </Router>
   );

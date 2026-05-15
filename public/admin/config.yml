@@ -18,13 +18,18 @@ collections:
     label: Begin OS Settings
     files:
       - name: affiliate
-        label: Amazon Affiliate ID
+        label: Site Tracking & Affiliate
         file: content/settings/affiliate.md
         fields:
           - label: Amazon Affiliate ID
             name: amazonAffiliateId
             widget: string
             hint: "Amazon Associates tracking ID, for example yourtag-20. The site adds it to amazon.com links as the tag parameter."
+          - label: Google Analytics ID
+            name: googleAnalyticsId
+            widget: string
+            required: false
+            hint: "GA4 measurement ID, for example G-XXXXXXXXXX. Leave blank to disable Google Analytics."
 
   - name: guides
     label: Begin OS Guides

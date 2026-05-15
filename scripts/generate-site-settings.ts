@@ -33,6 +33,7 @@ function parseFrontmatter(raw: string) {
 async function generate() {
   const data = parseFrontmatter(await readFile(settingsPath, 'utf8'));
   const amazonAffiliateId = data.amazonAffiliateId?.trim() ?? '';
+  const googleAnalyticsId = data.googleAnalyticsId?.trim() ?? '';
 
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(
@@ -40,6 +41,7 @@ async function generate() {
     [
       '/* This file is generated from content/settings/affiliate.md. Do not edit it directly. */',
       `export const AMAZON_AFFILIATE_ID = ${JSON.stringify(amazonAffiliateId)};`,
+      `export const GOOGLE_ANALYTICS_ID = ${JSON.stringify(googleAnalyticsId)};`,
       '',
     ].join('\n'),
   );

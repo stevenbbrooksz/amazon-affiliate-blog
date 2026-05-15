@@ -10,6 +10,7 @@ import { posts, guidePath } from '../src/guides.ts';
 import { GENERATED_GUIDE_FAQS } from '../src/generated/guides.index.generated.ts';
 import { withAmazonAffiliateId } from '../src/lib/amazonAffiliate.ts';
 import { setServerGuideDetails } from '../src/guideDetails.ts';
+import { GOOGLE_ANALYTICS_ID } from '../src/generated/site-settings.generated.ts';
 import type { PostDetailData } from '../src/types.ts';
 
 const distDir = path.resolve('dist');
@@ -24,6 +25,7 @@ const escapeHtml = (value: string) =>
     .replaceAll('"', '&quot;');
 
 const escapeJsonForScript = (value: unknown) => JSON.stringify(value, null, 2).replaceAll('<', '\\u003c');
+const googleAnalyticsId = /^G-[A-Z0-9]+$/i.test(GOOGLE_ANALYTICS_ID.trim()) ? GOOGLE_ANALYTICS_ID.trim() : '';
 
 function readGuideDetail(slug: string) {
   return JSON.parse(readFileSync(path.join(guideDetailDir, `${slug}.json`), 'utf8')) as PostDetailData;
@@ -53,6 +55,20 @@ function renderSeoTags(route: SeoRoute) {
     `<meta name="twitter:image" content="${SITE_URL}/og-image.svg" />`,
     `<script type="application/ld+json" data-seo>${escapeJsonForScript(jsonLd)}</script>`,
   ].map((tag) => `    ${tag}`).join('\n');
+}
+
+function renderAnalyticsTags() {
+  if (!googleAnalyticsId) return '';
+
+  return [
+    `    <script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}" data-google-analytics="${escapeHtml(googleAnalyticsId)}"></script>`,
+    '    <script>',
+    '      window.dataLayer = window.dataLayer || [];',
+    '      function gtag(){dataLayer.push(arguments);}',
+    '      gtag("js", new Date());',
+    `      gtag("config", ${JSON.stringify(googleAnalyticsId)}, { send_page_view: false });`,
+    '    </script>',
+  ].join('\n');
 }
 
 function buildStructuredData(route: SeoRoute) {
@@ -217,7 +233,7 @@ function renderHtml(template: string, route: SeoRoute) {
   );
 
   return stripDefaultSeo(template)
-    .replace('</head>', `${renderSeoTags(route)}\n  </head>`)
+    .replace('</head>', `${renderSeoTags(route)}\n${renderAnalyticsTags()}\n  </head>`)
     .replace('</body>', `${renderGuideDataScript(route)}\n  </body>`)
     .replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
 }

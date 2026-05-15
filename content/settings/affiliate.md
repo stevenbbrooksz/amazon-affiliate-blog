@@ -1,5 +1,6 @@
 ---
 amazonAffiliateId: "smartymode-20"
+googleAnalyticsId: ""
 ---
 
-Amazon affiliate settings for site-wide link tagging.
+Site-wide tracking and affiliate settings.
