@@ -56,6 +56,10 @@ const isAssetLikePath = (pathname: string) => {
   return /\.[a-z0-9]+$/i.test(pathname);
 };
 
+const isStaticAdminPath = (pathname: string) => {
+  return pathname === '/admin' || pathname.startsWith('/admin/');
+};
+
 const serveAppShell = async (context: PagesContext, status: 200 | 404) => {
   const url = new URL(context.request.url);
   const indexUrl = new URL('/', url);
@@ -76,6 +80,10 @@ const serveAppShell = async (context: PagesContext, status: 200 | 404) => {
 
 export const onRequest = async (context: PagesContext) => {
   const url = new URL(context.request.url);
+
+  if (isStaticAdminPath(url.pathname)) {
+    return context.next();
+  }
 
   if (isAssetLikePath(url.pathname)) {
     return context.next();
