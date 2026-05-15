@@ -2,7 +2,7 @@ backend:
   name: github
   repo: stevenbbrooksz/amazon-affiliate-blog
   branch: main
-  base_url: https://amazon-affiliate-blog.pages.dev
+  base_url: https://cms-auth.beginos.com
   auth_endpoint: /auth
 
 local_backend: true

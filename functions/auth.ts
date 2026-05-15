@@ -1,7 +1,4 @@
-import { renderDecapAuthCallback } from './oauth-response';
-
 type PagesEnv = {
-  GITHUB_TOKEN?: string;
   GITHUB_CLIENT_ID?: string;
 };
 
@@ -19,18 +16,8 @@ const randomState = () => {
 };
 
 export const onRequestGet = async ({ request, env }: PagesContext) => {
-  const token = env.GITHUB_TOKEN?.trim();
-  if (token) {
-    return new Response(renderDecapAuthCallback({ token, provider: 'github' }), {
-      headers: {
-        'content-type': 'text/html; charset=utf-8',
-        'cache-control': 'no-store',
-      },
-    });
-  }
-
   if (!env.GITHUB_CLIENT_ID) {
-    return new Response('Missing GITHUB_TOKEN or GITHUB_CLIENT_ID environment variable.', { status: 500 });
+    return new Response('Missing GITHUB_CLIENT_ID environment variable.', { status: 500 });
   }
 
   const requestUrl = new URL(request.url);
