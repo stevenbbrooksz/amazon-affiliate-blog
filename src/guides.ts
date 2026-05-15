@@ -1,7 +1,7 @@
-import { GENERATED_GUIDES } from './generated/guides.generated';
-import type { Post } from './types';
+import { GENERATED_GUIDE_INDEX } from './generated/guides.index.generated';
+import type { PostIndex } from './types';
 
-export const posts: Post[] = GENERATED_GUIDES;
+export const posts: PostIndex[] = GENERATED_GUIDE_INDEX;
 
 export function guidePath(slug: string) {
   return `/guides/${slug}`;

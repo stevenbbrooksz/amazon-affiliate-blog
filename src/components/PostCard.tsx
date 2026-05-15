@@ -2,11 +2,11 @@ import React from 'react';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Post } from '../types';
+import type { PostIndex } from '../types';
 import { guidePath } from '../guides';
 
 interface PostCardProps {
-  post: Post;
+  post: PostIndex;
   index: number;
   layout?: 'grid' | 'list';
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Calendar, ArrowLeft, Share2, Bookmark, ExternalLink, Zap, Headphones, BookOpen, PlayCircle, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
@@ -8,11 +8,14 @@ import { bountyPromotions } from '../constants/bounties';
 import { PostCard } from '../components/PostCard';
 import { NotFound } from './NotFound';
 import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
+import { fetchGuideDetail, getInitialGuideDetail } from '../guideDetails';
 
 export const PostDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const postIndex = posts.findIndex((p) => p.id === slug);
-  const post = posts[postIndex];
+  const postSummary = posts[postIndex];
+  const [postDetail, setPostDetail] = useState(() => (slug ? getInitialGuideDetail(slug) : null));
+  const activePostDetail = postDetail?.id === slug ? postDetail : null;
 
   // Navigation posts
   const prevPost = postIndex > 0 ? posts[postIndex - 1] : null;
@@ -20,7 +23,7 @@ export const PostDetail: React.FC = () => {
 
   // Related posts (same category, excluding current post)
   const relatedPosts = posts
-    .filter((p) => p.category === post?.category && p.id !== slug)
+    .filter((p) => p.category === postSummary?.category && p.id !== slug)
     .slice(0, 3);
 
   // Categories calculation
@@ -36,9 +39,27 @@ export const PostDetail: React.FC = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  if (!post) {
+  useEffect(() => {
+    let isActive = true;
+
+    if (!slug || activePostDetail) return;
+
+    setPostDetail(getInitialGuideDetail(slug));
+
+    fetchGuideDetail(slug).then((detail) => {
+      if (isActive) setPostDetail(detail);
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [slug, activePostDetail]);
+
+  if (!postSummary) {
     return <NotFound />;
   }
+
+  const post = activePostDetail ?? postSummary;
 
   return (
     <article className="min-h-screen bg-white">
@@ -102,7 +123,11 @@ export const PostDetail: React.FC = () => {
             </div>
 
             <div className="markdown-body prose prose-lg max-w-none prose-orange">
-              <ReactMarkdown>{post.content}</ReactMarkdown>
+              {activePostDetail ? (
+                <ReactMarkdown>{activePostDetail.content}</ReactMarkdown>
+              ) : (
+                <p className="text-gray-500">Loading guide...</p>
+              )}
             </div>
 
             {/* Post Navigation */}

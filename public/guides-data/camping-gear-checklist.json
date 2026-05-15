@@ -1,0 +1,22 @@
+{
+  "id": "camping-gear-checklist",
+  "title": "The Ultimate Guide to Outdoor Camping Gear",
+  "excerpt": "Gear up for your next adventure with a simple framework for choosing tents, sleep systems, cookware, and camp essentials.",
+  "content": "Whether you camp once a year or every month, the right gear makes the trip safer and more comfortable. The key is to buy around the type of camping you actually do.\n\n## Build the core kit first\n\nYour first purchases should cover shelter, sleep, food, water, light, and safety. These basics matter more than accessories because they affect every night outdoors.\n\n- Weather-appropriate tent\n- Sleeping bag and pad\n- Stove or cooking kit\n- Headlamp or lantern\n- Water storage and basic first aid\n\n## Match gear to the trip\n\nBackpacking gear prioritizes weight and packed size. Car camping gear can be larger, cheaper, and more comfortable. Do not pay for ultralight specs if you will park near the campsite.\n\n## Check setup time and durability\n\nA tent that looks great online can be frustrating if it is hard to pitch in wind or rain. Look for clear setup instructions, sturdy poles, good ventilation, and enough space for real use.",
+  "date": "2024-05-12",
+  "author": "Sarah Rogers",
+  "category": "Outdoor Gear",
+  "headerImage": "https://picsum.photos/seed/camping1/1200/600",
+  "recommendedProducts": [
+    {
+      "id": "coleman-skydome-tent",
+      "name": "Coleman Skydome Camping Tent",
+      "description": "Quick setup in under 5 minutes with pre-attached poles.",
+      "price": "$129.99",
+      "rating": 4.5,
+      "imageUrl": "https://picsum.photos/seed/tent/400/400",
+      "affiliateUrl": "https://www.amazon.com/dp/B0851MG324",
+      "category": "Camping"
+    }
+  ]
+}

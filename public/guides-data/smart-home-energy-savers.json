@@ -1,0 +1,22 @@
+{
+  "id": "smart-home-energy-savers",
+  "title": "5 Smart Home Devices That Can Help Lower Energy Bills",
+  "excerpt": "Efficiency is the name of the game. See how smart thermostats, plugs, bulbs, and sensors can reduce waste.",
+  "content": "Energy bills are a recurring cost, and small habits can add up. Smart home devices help by automating schedules, reducing standby power, and giving you better visibility into usage.\n\n## Start with the biggest energy categories\n\nHeating, cooling, lighting, and always-on electronics usually matter most. A smart thermostat or plug will not fix every bill, but it can help remove obvious waste.\n\n## Automation beats intention\n\nMost people intend to turn devices off. Automation makes that behavior consistent. Timers, occupancy sensors, and schedules are useful because they work even when you forget.\n\n- Smart thermostat schedules\n- Smart plugs for standby devices\n- LED bulbs with timers\n- Motion sensors for low-traffic rooms\n\n## Check compatibility before buying\n\nSome devices need a hub, neutral wire, specific HVAC wiring, or a particular app ecosystem. Read compatibility details before clicking buy, especially for thermostats and wall switches.",
+  "date": "2024-05-14",
+  "author": "Michael Smith",
+  "category": "Smart Home",
+  "headerImage": "https://picsum.photos/seed/smarthome1/1200/600",
+  "recommendedProducts": [
+    {
+      "id": "smart-plug-energy-monitor",
+      "name": "Smart Plug with Energy Monitoring",
+      "description": "Track power usage and automate devices from a mobile app.",
+      "price": "$24.99",
+      "rating": 4.6,
+      "imageUrl": "https://picsum.photos/seed/smart-plug/400/400",
+      "affiliateUrl": "https://www.amazon.com/s?k=smart+plug+energy+monitor",
+      "category": "Smart Home"
+    }
+  ]
+}

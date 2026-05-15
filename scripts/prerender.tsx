@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import React from 'react';
@@ -6,11 +7,14 @@ import { StaticRouter } from 'react-router';
 import { AppContent } from '../src/App.tsx';
 import { canonicalUrl, SEO_ROUTES, SITE_NAME, SITE_URL, type SeoRoute } from '../src/seo.ts';
 import { posts, guidePath } from '../src/guides.ts';
-import { GENERATED_GUIDE_FAQS } from '../src/generated/guides.generated.ts';
+import { GENERATED_GUIDE_FAQS } from '../src/generated/guides.index.generated.ts';
 import { withAmazonAffiliateId } from '../src/lib/amazonAffiliate.ts';
+import { setServerGuideDetails } from '../src/guideDetails.ts';
+import type { PostDetailData } from '../src/types.ts';
 
 const distDir = path.resolve('dist');
 const templatePath = path.join(distDir, 'index.html');
+const guideDetailDir = path.resolve('public/guides-data');
 
 const escapeHtml = (value: string) =>
   value
@@ -20,6 +24,13 @@ const escapeHtml = (value: string) =>
     .replaceAll('"', '&quot;');
 
 const escapeJsonForScript = (value: unknown) => JSON.stringify(value, null, 2).replaceAll('<', '\\u003c');
+
+function readGuideDetail(slug: string) {
+  return JSON.parse(readFileSync(path.join(guideDetailDir, `${slug}.json`), 'utf8')) as PostDetailData;
+}
+
+const guideDetailsBySlug = Object.fromEntries(posts.map((post) => [post.id, readGuideDetail(post.id)]));
+setServerGuideDetails(guideDetailsBySlug);
 
 function renderSeoTags(route: SeoRoute) {
   const canonical = canonicalUrl(route.path);
@@ -85,6 +96,7 @@ function buildStructuredData(route: SeoRoute) {
 
   const guide = posts.find((post) => guidePath(post.id) === route.path);
   if (guide) {
+    const guideDetail = guideDetailsBySlug[guide.id];
     graph.push({
       '@type': 'Article',
       '@id': `${canonical}#article`,
@@ -98,12 +110,12 @@ function buildStructuredData(route: SeoRoute) {
       dateModified: guide.date,
     });
 
-    if (guide.recommendedProducts.length) {
+    if (guideDetail.recommendedProducts.length) {
       graph.push({
         '@type': 'ItemList',
         '@id': `${canonical}#recommended-products`,
         name: `${guide.title} recommended products`,
-        itemListElement: guide.recommendedProducts.map((product, index) => ({
+        itemListElement: guideDetail.recommendedProducts.map((product, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           item: {
@@ -206,7 +218,19 @@ function renderHtml(template: string, route: SeoRoute) {
 
   return stripDefaultSeo(template)
     .replace('</head>', `${renderSeoTags(route)}\n  </head>`)
+    .replace('</body>', `${renderGuideDataScript(route)}\n  </body>`)
     .replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+}
+
+function renderGuideDataScript(route: SeoRoute) {
+  const guide = posts.find((post) => guidePath(post.id) === route.path);
+  if (!guide) return '';
+
+  return [
+    '    <script>',
+    `      window.__GUIDE_DETAILS__ = ${escapeJsonForScript({ [guide.id]: guideDetailsBySlug[guide.id] })};`,
+    '    </script>',
+  ].join('\n');
 }
 
 async function writeRouteHtml(template: string, route: SeoRoute) {

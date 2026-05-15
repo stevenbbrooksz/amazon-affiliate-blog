@@ -1,0 +1,32 @@
+{
+  "id": "home-office-smart-gadgets",
+  "title": "Transform Your Home Office with These 5 Essential Smart Gadgets",
+  "excerpt": "Elevate your productivity and comfort with smart office technology that improves focus, ergonomics, and daily workflow.",
+  "content": "Working from home has become normal, but a productive home office is more than a desk and a laptop. The right gadgets can reduce small annoyances, improve comfort, and make deep work easier to protect.\n\n## Start with ergonomics\n\nYour chair, desk height, keyboard, mouse, and monitor position shape how your body feels after a full day of work. Before buying flashy devices, fix the setup you touch for hours every day.\n\n- Adjustable chair with lumbar support\n- Monitor at eye level\n- Keyboard and mouse that keep wrists neutral\n- Standing option for posture variation\n\n## Use technology to reduce interruptions\n\nNoise-canceling headphones, reliable lighting, a good webcam, and a simple docking setup reduce the number of small problems you solve before every meeting.\n\nThe best office gadgets disappear into the workflow. They make your setup more consistent without adding complexity.\n\n## Buy for your actual work style\n\nA creator may need lighting and audio first. A spreadsheet-heavy operator may benefit more from an ultrawide monitor, precision mouse, and keyboard. Choose products around the work you repeat most often.",
+  "date": "2024-05-10",
+  "author": "Alex Chen",
+  "category": "Office Setup",
+  "headerImage": "https://picsum.photos/seed/office1/1200/600",
+  "recommendedProducts": [
+    {
+      "id": "sony-wh-1000xm5",
+      "name": "Sony WH-1000XM5 Wireless Headphones",
+      "description": "Industry-leading noise canceling with Auto NC Optimizer.",
+      "price": "$348.00",
+      "rating": 4.8,
+      "imageUrl": "https://picsum.photos/seed/sony-xm5/400/400",
+      "affiliateUrl": "https://www.amazon.com/dp/B09XS7JWHH",
+      "category": "Audio"
+    },
+    {
+      "id": "logitech-mx-master-3s",
+      "name": "Logitech MX Master 3S",
+      "description": "Ultrafast scrolling, 8K DPI track-on-glass sensor.",
+      "price": "$99.00",
+      "rating": 4.9,
+      "imageUrl": "https://picsum.photos/seed/mx-master/400/400",
+      "affiliateUrl": "https://www.amazon.com/dp/B09HM94VDS",
+      "category": "Peripherals"
+    }
+  ]
+}

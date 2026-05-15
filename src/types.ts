@@ -9,14 +9,19 @@ export interface Product {
   category: string;
 }
 
-export interface Post {
+export interface PostIndex {
   id: string;
   title: string;
   excerpt: string;
-  content: string;
   date: string;
   author: string;
   category: string;
   headerImage: string;
+}
+
+export interface PostDetailData extends PostIndex {
+  content: string;
   recommendedProducts: Product[];
 }
+
+export type Post = PostDetailData;

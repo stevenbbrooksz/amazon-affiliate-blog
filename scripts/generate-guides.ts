@@ -1,11 +1,12 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { Post, Product } from '../src/types';
+import type { PostDetailData, PostIndex, Product } from '../src/types';
 
 type Frontmatter = Record<string, string | Record<string, string>[]>;
 
 const contentDir = path.resolve('content/guides');
-const outputPath = path.resolve('src/generated/guides.generated.ts');
+const indexOutputPath = path.resolve('src/generated/guides.index.generated.ts');
+const detailOutputDir = path.resolve('public/guides-data');
 
 function stripQuotes(value: string) {
   const trimmed = value.trim();
@@ -96,7 +97,7 @@ function optionalList(data: Frontmatter, key: string) {
   return Array.isArray(value) ? value : [];
 }
 
-async function readGuide(filePath: string): Promise<{ guide: Post; order: number; faqs: { question: string; answer: string }[] }> {
+async function readGuide(filePath: string): Promise<{ guide: PostDetailData; order: number; faqs: { question: string; answer: string }[] }> {
   const raw = await readFile(filePath, 'utf8');
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   if (!match) {
@@ -147,18 +148,31 @@ async function generate() {
     .sort((a, b) => a.order - b.order || a.guide.title.localeCompare(b.guide.title))
     .map(({ guide }) => guide);
 
+  const guideIndex: PostIndex[] = guides.map(({ content: _content, recommendedProducts: _products, ...index }) => index);
+
   const faqByGuideSlug = Object.fromEntries(
     guidesWithOrder.map(({ guide, faqs }) => [guide.id, faqs]),
   );
 
-  await mkdir(path.dirname(outputPath), { recursive: true });
+  await mkdir(path.dirname(indexOutputPath), { recursive: true });
+  await mkdir(detailOutputDir, { recursive: true });
+
+  await Promise.all(
+    guides.map((guide) =>
+      writeFile(
+        path.join(detailOutputDir, `${guide.id}.json`),
+        `${JSON.stringify(guide, null, 2)}\n`,
+      ),
+    ),
+  );
+
   await writeFile(
-    outputPath,
+    indexOutputPath,
     [
-      "import type { Post } from '../types';",
+      "import type { PostIndex } from '../types';",
       '',
       '/* This file is generated from content/guides/*.md. Do not edit it directly. */',
-      `export const GENERATED_GUIDES: Post[] = ${JSON.stringify(guides, null, 2)};`,
+      `export const GENERATED_GUIDE_INDEX: PostIndex[] = ${JSON.stringify(guideIndex, null, 2)};`,
       `export const GENERATED_GUIDE_FAQS: Record<string, { question: string; answer: string }[]> = ${JSON.stringify(faqByGuideSlug, null, 2)};`,
       '',
     ].join('\n'),
