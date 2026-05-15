@@ -83,16 +83,8 @@
         display: none !important;
       }
 
-      body > div > div:last-child:has(svg + span),
-      body > div > div:last-child:has(img + span),
-      body > div > div:last-child:has(a[href*="decap"]),
-      body > div > div:last-child:has([class*="Logo"]),
-      body > div > div:last-child:has([class*="Brand"]),
-      body > div > div:last-child:has([class*="NetlifyCreditIcon"]),
-      body > div > div:last-child:has(svg[viewBox="0 0 335 90"]) {
-        display: none !important;
-      }
-
+      [class*="IconWrapper-NetlifyCreditIcon"],
+      [class*="NetlifyCreditIcon"],
       [data-begin-hidden-brand] {
         display: none !important;
       }
