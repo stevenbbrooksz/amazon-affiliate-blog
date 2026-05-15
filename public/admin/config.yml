@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: SunnyBuilds/amazon-affiliate-blog
+  repo: stevenbbrooksz/amazon-affiliate-blog
   branch: main
   base_url: https://amazon-affiliate-blog.pages.dev
   auth_endpoint: /auth
