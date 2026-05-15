@@ -71,6 +71,21 @@
         background: var(--begin-accent) !important;
         border-color: var(--begin-accent) !important;
       }
+
+      a[href*="decap"],
+      a[href*="netlifycms"],
+      [aria-label*="Decap"],
+      [title*="Decap"],
+      [class*="decap"],
+      [class*="Decap"] {
+        display: none !important;
+      }
+
+      body > div > div:last-child:has(svg + span),
+      body > div > div:last-child:has(img + span),
+      body > div > div:last-child:has(a[href*="decap"]) {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
@@ -86,6 +101,21 @@
           show_preview_links: true,
         },
       });
+
+      function hideDecapBranding() {
+        document.querySelectorAll('a, div, span, p').forEach(function (node) {
+          var text = (node.textContent || '').trim().toLowerCase();
+          if (text === 'decap' || text.includes('decap cms')) {
+            var target = node.closest('a') || node.parentElement;
+            if (target && target !== document.body) {
+              target.style.display = 'none';
+            }
+          }
+        });
+      }
+
+      hideDecapBranding();
+      window.setInterval(hideDecapBranding, 500);
     </script>
   </body>
 </html>
