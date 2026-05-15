@@ -1,15 +1,18 @@
 {
-  "name": "react-example",
+  "name": "amazon-affiliate-blog",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "prebuild": "tsx scripts/generate-route-data.ts",
-    "build": "vite build",
+    "generate:settings": "tsx scripts/generate-site-settings.ts",
+    "generate:guides": "tsx scripts/generate-guides.ts",
+    "configure:decap": "tsx scripts/configure-decap.ts",
+    "prebuild": "npm run configure:decap && npm run generate:settings && npm run generate:guides && tsx scripts/generate-route-data.ts",
+    "build": "vite build && tsx scripts/prerender.tsx",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "npm run generate:settings && npm run generate:guides && tsc --noEmit"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

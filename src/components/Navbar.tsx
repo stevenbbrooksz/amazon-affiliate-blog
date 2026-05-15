@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, ShoppingBag, ChevronDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { posts } from '../data/posts';
+import { categoryPath, posts } from '../guides';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
@@ -66,7 +67,7 @@ export const Navbar: React.FC = () => {
                       {categories.map((category) => (
                         <Link
                           key={category}
-                          to={`/category/${category}`}
+                          to={categoryPath(category)}
                           className="block rounded-lg px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
                         >
                           {category}
@@ -107,7 +108,7 @@ export const Navbar: React.FC = () => {
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
             <a 
-              href="https://www.amazon.com/Best-Sellers/zgbs" 
+              href={withAmazonAffiliateId('https://www.amazon.com/Best-Sellers/zgbs')}
               target="_blank" 
               className="hidden lg:block rounded-full bg-gray-900 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-gray-800"
             >
@@ -140,7 +141,7 @@ export const Navbar: React.FC = () => {
                 {categories.map((category) => (
                   <Link
                     key={category}
-                    to={`/category/${category}`}
+                    to={categoryPath(category)}
                     onClick={() => setIsMenuOpen(false)}
                     className="block text-gray-600 font-medium pl-4"
                   >

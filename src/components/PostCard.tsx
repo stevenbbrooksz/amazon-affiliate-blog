@@ -3,6 +3,7 @@ import { Calendar, User, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Post } from '../types';
+import { guidePath } from '../guides';
 
 interface PostCardProps {
   post: Post;
@@ -23,7 +24,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, index, layout = 'grid'
       }`}
     >
       <Link 
-        to={`/post/${post.id}`} 
+        to={guidePath(post.id)}
         className={`block overflow-hidden ${
           isList ? 'w-full md:w-[320px] aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'
         }`}
@@ -46,7 +47,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, index, layout = 'grid'
           </div>
         </div>
         
-        <Link to={`/post/${post.id}`}>
+        <Link to={guidePath(post.id)}>
           <h2 className={`mb-3 font-bold leading-tight text-gray-900 group-hover:text-orange-600 transition-colors ${
             isList ? 'text-xl lg:text-2xl' : 'text-2xl'
           }`}>
@@ -67,7 +68,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, index, layout = 'grid'
           </div>
           
           <Link
-            to={`/post/${post.id}`}
+            to={guidePath(post.id)}
             className="inline-flex items-center gap-1 text-sm font-bold text-orange-600 hover:gap-2 transition-all"
           >
             Read Article

@@ -3,9 +3,10 @@ import { motion } from 'motion/react';
 import { bountyPromotions } from '../constants/bounties';
 import { ExternalLink, ChevronRight, Sparkles, Search, Tag, Clock, Zap, Headphones, BookOpen, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { posts } from '../data/posts';
+import { categoryPath, guidePath, posts } from '../guides';
 import { PostCard } from '../components/PostCard';
 import { Pagination } from '../components/Pagination';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 export const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -174,7 +175,7 @@ export const Home: React.FC = () => {
                         </ul>
 
                         <a 
-                          href={promo.url}
+                          href={withAmazonAffiliateId(promo.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2 w-full rounded-xl bg-gray-900 py-3 text-[10px] font-black uppercase tracking-widest text-white transition-all hover:bg-orange-600 group-hover:shadow-lg"
@@ -201,7 +202,7 @@ export const Home: React.FC = () => {
                 {categories.map((cat) => (
                   <Link
                     key={cat.name}
-                    to={`/category/${cat.name}`}
+                    to={categoryPath(cat.name)}
                     className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-all group"
                   >
                     <span>{cat.name}</span>
@@ -218,7 +219,7 @@ export const Home: React.FC = () => {
               </h3>
               <div className="space-y-6">
                 {recentPosts.map((post) => (
-                  <Link key={post.id} to={`/post/${post.id}`} className="group flex gap-4 items-center">
+                  <Link key={post.id} to={guidePath(post.id)} className="group flex gap-4 items-center">
                     <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl">
                       <img 
                         src={post.headerImage} 

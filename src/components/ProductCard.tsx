@@ -3,6 +3,7 @@ import { ShoppingCart, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Product } from '../types';
 import { cn } from '../lib/utils';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 interface ProductCardProps {
   product: Product;
@@ -52,7 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         <div className="mt-auto flex items-center justify-between">
           <span className="text-xl font-black text-gray-900">{product.price}</span>
           <a
-            href={product.affiliateUrl}
+            href={withAmazonAffiliateId(product.affiliateUrl)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-orange-700 active:scale-95"

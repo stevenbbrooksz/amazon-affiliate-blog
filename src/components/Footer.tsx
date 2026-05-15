@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { posts } from '../data/posts';
+import { categoryPath, posts } from '../guides';
 
 export const Footer: React.FC = () => {
   const [isLinksOpen, setIsLinksOpen] = useState(false);
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
                           {categories.map((category) => (
                             <Link
                               key={category}
-                              to={`/category/${category}`}
+                              to={categoryPath(category)}
                               className="block rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:bg-gray-700 hover:text-white transition-colors"
                             >
                               {category}
@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
                         {categories.map((category) => (
                           <Link
                             key={category}
-                            to={`/category/${category}`}
+                            to={categoryPath(category)}
                             className="text-xs hover:text-white transition-colors"
                           >
                             {category}

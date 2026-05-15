@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -14,8 +14,9 @@ import {
   Zap,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { posts } from '../data/posts';
+import { categoryPath, guidePath, posts } from '../guides';
 import { bountyPromotions } from '../constants/bounties';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 const offerIcons = { Zap, Headphones, BookOpen, PlayCircle };
 
@@ -36,30 +37,6 @@ export const NotFound: React.FC = () => {
   }, []);
 
   const featuredOffers = bountyPromotions;
-
-  useEffect(() => {
-    const previousTitle = document.title;
-    const existingRobots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    const previousRobotsContent = existingRobots?.getAttribute('content') ?? null;
-    const robots = existingRobots ?? document.createElement('meta');
-
-    document.title = '404 - Page Not Found | AMZREVIEWS';
-    robots.setAttribute('name', 'robots');
-    robots.setAttribute('content', 'noindex, follow');
-
-    if (!existingRobots) {
-      document.head.appendChild(robots);
-    }
-
-    return () => {
-      document.title = previousTitle;
-      if (existingRobots && previousRobotsContent) {
-        existingRobots.setAttribute('content', previousRobotsContent);
-      } else if (robots.parentNode) {
-        robots.parentNode.removeChild(robots);
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
@@ -87,7 +64,7 @@ export const NotFound: React.FC = () => {
                   Back Home
                 </Link>
                 <a
-                  href="https://www.amazon.com/Best-Sellers/zgbs"
+                  href={withAmazonAffiliateId('https://www.amazon.com/Best-Sellers/zgbs')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-xs font-black uppercase tracking-widest text-gray-950 transition-all hover:bg-orange-50"
@@ -149,7 +126,7 @@ export const NotFound: React.FC = () => {
               {latestPosts.map((post) => (
                 <Link
                   key={post.id}
-                  to={`/post/${post.id}`}
+                  to={guidePath(post.id)}
                   className="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="aspect-[16/9] overflow-hidden bg-gray-100">
@@ -208,7 +185,7 @@ export const NotFound: React.FC = () => {
                 {categories.map((category) => (
                   <Link
                     key={category.name}
-                    to={`/category/${category.name}`}
+                    to={categoryPath(category.name)}
                     className="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3 text-sm font-bold text-gray-700 transition-colors hover:bg-orange-50 hover:text-orange-600"
                   >
                     <span>{category.name}</span>

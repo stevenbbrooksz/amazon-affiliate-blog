@@ -3,14 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Calendar, ArrowLeft, Share2, Bookmark, ExternalLink, Zap, Headphones, BookOpen, PlayCircle, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-import { posts } from '../data/posts';
+import { categoryPath, guidePath, posts } from '../guides';
 import { bountyPromotions } from '../constants/bounties';
 import { PostCard } from '../components/PostCard';
 import { NotFound } from './NotFound';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 export const PostDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const postIndex = posts.findIndex((p) => p.id === id);
+  const { slug } = useParams<{ slug: string }>();
+  const postIndex = posts.findIndex((p) => p.id === slug);
   const post = posts[postIndex];
 
   // Navigation posts
@@ -19,7 +20,7 @@ export const PostDetail: React.FC = () => {
 
   // Related posts (same category, excluding current post)
   const relatedPosts = posts
-    .filter((p) => p.category === post?.category && p.id !== id)
+    .filter((p) => p.category === post?.category && p.id !== slug)
     .slice(0, 3);
 
   // Categories calculation
@@ -33,7 +34,7 @@ export const PostDetail: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [slug]);
 
   if (!post) {
     return <NotFound />;
@@ -108,7 +109,7 @@ export const PostDetail: React.FC = () => {
             <div className="mt-16 grid grid-cols-1 gap-6 border-t border-gray-100 pt-12 sm:grid-cols-2">
               {prevPost ? (
                 <Link 
-                  to={`/post/${prevPost.id}`}
+                  to={guidePath(prevPost.id)}
                   className="group flex items-center gap-4 rounded-3xl border border-gray-100 p-4 transition-all hover:border-orange-200 hover:bg-orange-50/20"
                 >
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-gray-100">
@@ -130,7 +131,7 @@ export const PostDetail: React.FC = () => {
               
               {nextPost ? (
                 <Link 
-                  to={`/post/${nextPost.id}`}
+                  to={guidePath(nextPost.id)}
                   className="group flex items-center justify-end gap-4 rounded-3xl border border-gray-100 p-4 transition-all hover:border-orange-200 hover:bg-orange-50/20 text-right"
                 >
                   <div className="flex flex-col gap-1.5 order-1">
@@ -159,7 +160,7 @@ export const PostDetail: React.FC = () => {
                     More in <span className="text-orange-600">{post.category}</span>
                   </h3>
                   <Link 
-                    to={`/category/${post.category?.toLowerCase().replace(/\s+/g, '-')}`}
+                    to={categoryPath(post.category)}
                     className="text-sm font-bold text-orange-600 hover:underline"
                   >
                     View All
@@ -194,7 +195,7 @@ export const PostDetail: React.FC = () => {
                   {categories.map((cat) => (
                     <Link
                       key={cat.name}
-                      to={`/category/${cat.name}`}
+                      to={categoryPath(cat.name)}
                       className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-all group"
                     >
                       <span>{cat.name}</span>
@@ -242,7 +243,7 @@ export const PostDetail: React.FC = () => {
                           </ul>
 
                           <a 
-                            href={promo.url}
+                            href={withAmazonAffiliateId(promo.url)}
                             target="_blank"
                             rel="noopener noreferrer sponsored nofollow"
                             className="flex items-center justify-center gap-2 w-full rounded-xl bg-gray-900 py-3 text-[11px] font-black uppercase tracking-widest text-white transition-all hover:bg-orange-600 group-hover:shadow-lg"

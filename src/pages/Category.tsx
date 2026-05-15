@@ -1,18 +1,20 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { posts } from '../data/posts';
+import { categoryPath, posts } from '../guides';
 import { PostCard } from '../components/PostCard';
 import { bountyPromotions } from '../constants/bounties';
 import { Sparkles, Zap, Headphones, BookOpen, PlayCircle, ExternalLink, Tag } from 'lucide-react';
 import { Pagination } from '../components/Pagination';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 export const Category: React.FC = () => {
   const { categoryName } = useParams<{ categoryName: string }>();
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 10;
 
-  const filteredPosts = posts.filter((p) => p.category === categoryName);
+  const decodedCategoryName = categoryName ? decodeURIComponent(categoryName) : '';
+  const filteredPosts = posts.filter((p) => p.category === decodedCategoryName);
 
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -44,9 +46,9 @@ export const Category: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="mb-4 block text-xs font-black uppercase tracking-widest text-orange-600">Category Archive</span>
-            <h1 className="text-5xl font-black tracking-tight text-white sm:text-7xl">{categoryName}</h1>
+            <h1 className="text-5xl font-black tracking-tight text-white sm:text-7xl">{decodedCategoryName}</h1>
             <p className="mt-6 max-w-2xl text-xl text-gray-400">
-              Discover the latest articles, guides, and top-rated products in {categoryName}.
+              Discover the latest articles, guides, and top-rated products in {decodedCategoryName}.
             </p>
           </motion.div>
         </div>
@@ -88,7 +90,7 @@ export const Category: React.FC = () => {
                 {categories.map((cat) => (
                   <Link
                     key={cat.name}
-                    to={`/category/${cat.name}`}
+                    to={categoryPath(cat.name)}
                     className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-all group"
                   >
                     <span>{cat.name}</span>
@@ -137,7 +139,7 @@ export const Category: React.FC = () => {
                         </ul>
 
                         <a 
-                          href={promo.url}
+                          href={withAmazonAffiliateId(promo.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2 w-full rounded-xl bg-gray-900 py-3 text-[10px] font-black uppercase tracking-widest text-white transition-all hover:bg-orange-600 group-hover:shadow-lg"

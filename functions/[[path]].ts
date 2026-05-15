@@ -1,4 +1,4 @@
-import { validCategories, validPostIds } from './route-data';
+import { validCategories, validGuidePaths } from './route-data';
 
 type PagesEnv = {
   ASSETS: {
@@ -13,7 +13,7 @@ type PagesContext = {
 };
 
 const validStaticRoutes = new Set(['/', '/about', '/contact']);
-const validPostIdSet = new Set<string>(validPostIds);
+const validGuidePathSet = new Set<string>(validGuidePaths);
 const validCategorySet = new Set<string>(validCategories);
 
 const normalizePathname = (pathname: string) => {
@@ -39,9 +39,9 @@ const isValidAppRoute = (pathname: string) => {
     return true;
   }
 
-  const postMatch = path.match(/^\/post\/([^/]+)$/);
-  if (postMatch) {
-    return validPostIdSet.has(decodePathPart(postMatch[1]));
+  const guideMatch = path.match(/^\/guides\/([^/]+)$/);
+  if (guideMatch) {
+    return validGuidePathSet.has(`/guides/${decodePathPart(guideMatch[1])}`);
   }
 
   const categoryMatch = path.match(/^\/category\/([^/]+)$/);

@@ -1,0 +1,80 @@
+backend:
+  name: github
+  repo: SunnyBuilds/amazon-affiliate-blog
+  branch: main
+  base_url: https://amazon-affiliate-blog.pages.dev
+  auth_endpoint: /auth
+
+local_backend: true
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: editorial_workflow
+display_url: Begin OS
+logo_url: /favicon.svg
+show_preview_links: true
+
+collections:
+  - name: settings
+    label: Begin OS Settings
+    files:
+      - name: affiliate
+        label: Amazon Affiliate ID
+        file: content/settings/affiliate.md
+        fields:
+          - label: Amazon Affiliate ID
+            name: amazonAffiliateId
+            widget: string
+            hint: "Amazon Associates tracking ID, for example yourtag-20. The site adds it to amazon.com links as the tag parameter."
+
+  - name: guides
+    label: Begin OS Guides
+    folder: content/guides
+    create: true
+    slug: "{{fields.slug}}"
+    preview_path: "guides/{{fields.slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    fields:
+      - label: Slug
+        name: slug
+        widget: string
+        pattern:
+          - "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          - Use lowercase kebab-case, for example home-office-smart-gadgets.
+      - { label: Sort order, name: order, widget: number, value_type: int, default: 100 }
+      - { label: Title, name: title, widget: string }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: SEO description, name: description, widget: text }
+      - { label: Published date, name: date, widget: date, format: "YYYY-MM-DD" }
+      - { label: Author, name: author, widget: string, default: "Alex Chen" }
+      - { label: Category, name: category, widget: string }
+      - { label: Header image URL, name: headerImage, widget: string }
+      - { label: Reading time, name: readingTime, widget: string, default: "5 min read" }
+      - label: Recommended products
+        name: recommendedProducts
+        widget: list
+        required: false
+        fields:
+          - { label: Product ID, name: id, widget: string }
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: description, widget: text }
+          - { label: Price, name: price, widget: string, required: false }
+          - { label: Rating, name: rating, widget: string, required: false }
+          - { label: Image URL, name: imageUrl, widget: string }
+          - label: Affiliate URL
+            name: affiliateUrl
+            widget: string
+            hint: "Use a clean amazon.com product/search URL. The site-wide Amazon Affiliate ID is added automatically."
+          - { label: Category, name: category, widget: string }
+      - label: FAQ
+        name: faqs
+        widget: list
+        required: false
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+      - label: Body
+        name: body
+        widget: markdown
+        hint: "Use Markdown. The first paragraph should summarize the guide, then use ## headings and bullet lists."

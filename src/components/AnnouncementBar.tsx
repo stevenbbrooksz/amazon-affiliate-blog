@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Tag, X, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { posts } from '../data/posts';
+import { posts } from '../guides';
+import { withAmazonAffiliateId } from '../lib/amazonAffiliate';
 
 export const AnnouncementBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -24,7 +25,7 @@ export const AnnouncementBar: React.FC = () => {
 
   const category = categories[currentIndex];
   // Amazon Search URL with category keyword
-  const amazonSearchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(category)}`;
+  const amazonSearchUrl = withAmazonAffiliateId(`https://www.amazon.com/s?k=${encodeURIComponent(category)}`);
 
   return (
     <AnimatePresence>
