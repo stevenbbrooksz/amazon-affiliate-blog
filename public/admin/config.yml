@@ -13,9 +13,6 @@ display_url: Begin OS
 logo_url: /favicon.svg
 show_preview_links: true
 
-editor:
-  preview: false
-
 collections:
   - name: settings
     label: Settings
