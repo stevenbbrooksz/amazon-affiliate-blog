@@ -51,7 +51,7 @@ const isAuthorizedUser = async (token: string, env: PagesEnv) => {
   const allowedUsers = splitList(env.GITHUB_ALLOWED_USERS);
   const allowedOrgs = splitList(env.GITHUB_ALLOWED_ORGS);
 
-  if (!allowedUsers.length && !allowedOrgs.length) return true;
+  if (!allowedUsers.length && !allowedOrgs.length) return false;
 
   const user = await fetchGithubJson<{ login: string }>('https://api.github.com/user', token);
   const login = user?.login?.toLowerCase();
@@ -104,6 +104,10 @@ export const onRequestGet = async ({ request, env }: PagesContext) => {
   if (!tokenResponse.ok || !tokenData.access_token) {
     const error = tokenData.error_description || tokenData.error || 'GitHub token exchange failed.';
     return new Response(escapeHtml(error), { status: 502 });
+  }
+
+  if (!splitList(env.GITHUB_ALLOWED_USERS).length && !splitList(env.GITHUB_ALLOWED_ORGS).length) {
+    return new Response('Missing GITHUB_ALLOWED_USERS or GITHUB_ALLOWED_ORGS environment variable.', { status: 500 });
   }
 
   if (!(await isAuthorizedUser(tokenData.access_token, env))) {
