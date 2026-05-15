@@ -77,7 +77,9 @@
       [aria-label*="Decap"],
       [title*="Decap"],
       [class*="decap"],
-      [class*="Decap"] {
+      [class*="Decap"],
+      [class*="NetlifyCreditIcon"],
+      [class*="IconWrapper-NetlifyCreditIcon"] {
         display: none !important;
       }
 
@@ -85,7 +87,9 @@
       body > div > div:last-child:has(img + span),
       body > div > div:last-child:has(a[href*="decap"]),
       body > div > div:last-child:has([class*="Logo"]),
-      body > div > div:last-child:has([class*="Brand"]) {
+      body > div > div:last-child:has([class*="Brand"]),
+      body > div > div:last-child:has([class*="NetlifyCreditIcon"]),
+      body > div > div:last-child:has(svg[viewBox="0 0 335 90"]) {
         display: none !important;
       }
 
@@ -128,7 +132,12 @@
       function hideDecapBranding() {
         document.querySelectorAll('a, div, span, p, svg').forEach(function (node) {
           var text = (node.textContent || '').trim().toLowerCase();
-          if (text === 'decap' || text.includes('decap cms')) {
+          var isDecapCreditSvg =
+            node.tagName && node.tagName.toLowerCase() === 'svg' && node.getAttribute('viewBox') === '0 0 335 90';
+          var isDecapCreditClass =
+            typeof node.className === 'string' && node.className.toLowerCase().includes('netlifycrediticon');
+
+          if (text === 'decap' || text.includes('decap cms') || isDecapCreditSvg || isDecapCreditClass) {
             var target = findBrandContainer(node.closest('a') || node);
             if (target && target !== document.body) {
               target.setAttribute('data-begin-hidden-brand', 'true');
