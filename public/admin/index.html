@@ -83,7 +83,13 @@
 
       body > div > div:last-child:has(svg + span),
       body > div > div:last-child:has(img + span),
-      body > div > div:last-child:has(a[href*="decap"]) {
+      body > div > div:last-child:has(a[href*="decap"]),
+      body > div > div:last-child:has([class*="Logo"]),
+      body > div > div:last-child:has([class*="Brand"]) {
+        display: none !important;
+      }
+
+      [data-begin-hidden-brand] {
         display: none !important;
       }
     </style>
@@ -102,19 +108,37 @@
         },
       });
 
+      function findBrandContainer(node) {
+        var current = node;
+        var candidate = node;
+
+        while (current && current.parentElement && current.parentElement !== document.body) {
+          var text = (current.parentElement.textContent || '').trim().toLowerCase();
+          if (text && text.length <= 40 && text.includes('decap')) {
+            candidate = current.parentElement;
+            current = current.parentElement;
+            continue;
+          }
+          break;
+        }
+
+        return candidate;
+      }
+
       function hideDecapBranding() {
-        document.querySelectorAll('a, div, span, p').forEach(function (node) {
+        document.querySelectorAll('a, div, span, p, svg').forEach(function (node) {
           var text = (node.textContent || '').trim().toLowerCase();
           if (text === 'decap' || text.includes('decap cms')) {
-            var target = node.closest('a') || node.parentElement;
+            var target = findBrandContainer(node.closest('a') || node);
             if (target && target !== document.body) {
-              target.style.display = 'none';
+              target.setAttribute('data-begin-hidden-brand', 'true');
             }
           }
         });
       }
 
       hideDecapBranding();
+      new MutationObserver(hideDecapBranding).observe(document.body, { childList: true, subtree: true });
       window.setInterval(hideDecapBranding, 500);
     </script>
   </body>
