@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { PostDetailData, PostIndex, Product } from '../src/types';
 
@@ -97,7 +97,19 @@ function optionalList(data: Frontmatter, key: string) {
   return Array.isArray(value) ? value : [];
 }
 
-async function readGuide(filePath: string): Promise<{ guide: PostDetailData; order: number; faqs: { question: string; answer: string }[] }> {
+function parsePublishTime(data: Frontmatter, filePath: string) {
+  const publishAt = optionalString(data, 'publishAt').trim();
+  const scheduledValue = publishAt || requireString(data, 'date', filePath);
+  const timestamp = Date.parse(scheduledValue);
+
+  if (Number.isNaN(timestamp)) {
+    throw new Error(`${filePath} has an invalid publishAt/date value: ${scheduledValue}`);
+  }
+
+  return timestamp;
+}
+
+async function readGuide(filePath: string): Promise<{ guide: PostDetailData; order: number; publishTime: number; faqs: { question: string; answer: string }[] }> {
   const raw = await readFile(filePath, 'utf8');
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   if (!match) {
@@ -137,6 +149,7 @@ async function readGuide(filePath: string): Promise<{ guide: PostDetailData; ord
       recommendedProducts: products,
     },
     order: Number.isFinite(order) ? order : 999,
+    publishTime: parsePublishTime(data, filePath),
     faqs,
   };
 }
@@ -144,17 +157,20 @@ async function readGuide(filePath: string): Promise<{ guide: PostDetailData; ord
 async function generate() {
   const files = (await readdir(contentDir)).filter((file) => file.endsWith('.md')).sort();
   const guidesWithOrder = await Promise.all(files.map((file) => readGuide(path.join(contentDir, file))));
-  const guides = guidesWithOrder
+  const now = Date.now();
+  const publishedGuidesWithOrder = guidesWithOrder.filter(({ publishTime }) => publishTime <= now);
+  const guides = publishedGuidesWithOrder
     .sort((a, b) => a.order - b.order || a.guide.title.localeCompare(b.guide.title))
     .map(({ guide }) => guide);
 
   const guideIndex: PostIndex[] = guides.map(({ content: _content, recommendedProducts: _products, ...index }) => index);
 
   const faqByGuideSlug = Object.fromEntries(
-    guidesWithOrder.map(({ guide, faqs }) => [guide.id, faqs]),
+    publishedGuidesWithOrder.map(({ guide, faqs }) => [guide.id, faqs]),
   );
 
   await mkdir(path.dirname(indexOutputPath), { recursive: true });
+  await rm(detailOutputDir, { recursive: true, force: true });
   await mkdir(detailOutputDir, { recursive: true });
 
   await Promise.all(
@@ -178,7 +194,8 @@ async function generate() {
     ].join('\n'),
   );
 
-  console.log(`Generated ${guides.length} guides.`);
+  const skippedCount = guidesWithOrder.length - publishedGuidesWithOrder.length;
+  console.log(`Generated ${guides.length} guides${skippedCount ? `; skipped ${skippedCount} scheduled guides.` : '.'}`);
 }
 
 await generate();

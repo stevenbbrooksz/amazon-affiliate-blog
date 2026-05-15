@@ -52,6 +52,11 @@ collections:
       - { label: Excerpt, name: excerpt, widget: text }
       - { label: SEO description, name: description, widget: text }
       - { label: Published date, name: date, widget: date, format: "YYYY-MM-DD" }
+      - label: Publish time
+        name: publishAt
+        widget: datetime
+        required: false
+        hint: "Optional scheduled publish time. Future-dated guides are excluded during build until this time has passed."
       - { label: Author, name: author, widget: string, default: "Alex Chen" }
       - { label: Category, name: category, widget: string }
       - { label: Header image URL, name: headerImage, widget: string }
