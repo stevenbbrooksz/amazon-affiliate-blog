@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { posts } from '../data/posts';
 import { bountyPromotions } from '../constants/bounties';
 import { PostCard } from '../components/PostCard';
+import { NotFound } from './NotFound';
 
 export const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,14 +36,7 @@ export const PostDetail: React.FC = () => {
   }, [id]);
 
   if (!post) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-4xl font-black text-gray-900">Post Not Found</h1>
-          <Link to="/" className="mt-4 inline-block text-orange-600 hover:underline">Return Home</Link>
-        </div>
-      </div>
-    );
+    return <NotFound />;
   }
 
   return (
@@ -250,7 +244,7 @@ export const PostDetail: React.FC = () => {
                           <a 
                             href={promo.url}
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noopener noreferrer sponsored nofollow"
                             className="flex items-center justify-center gap-2 w-full rounded-xl bg-gray-900 py-3 text-[11px] font-black uppercase tracking-widest text-white transition-all hover:bg-orange-600 group-hover:shadow-lg"
                           >
                             {promo.cta} <ExternalLink className="h-3 w-3" />
