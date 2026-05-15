@@ -40,8 +40,7 @@
         box-shadow: 0 12px 30px rgb(15 23 42 / 18%);
       }
 
-      [class*="AppHeader"],
-      [class*="Toolbar"] {
+      [class*="AppHeader"] {
         background: var(--begin-ink) !important;
         border-color: #000 !important;
         box-shadow: 0 1px 0 rgb(0 0 0 / 24%) !important;
@@ -49,11 +48,14 @@
 
       [class*="AppHeader"] a,
       [class*="AppHeader"] button,
-      [class*="AppHeader"] span,
-      [class*="Toolbar"] a,
-      [class*="Toolbar"] button,
-      [class*="Toolbar"] span {
+      [class*="AppHeader"] span {
         color: #fff !important;
+      }
+
+      [class*="Dropdown"],
+      [class*="Menu"],
+      [class*="Popover"] {
+        color: var(--begin-ink) !important;
       }
 
       button,
