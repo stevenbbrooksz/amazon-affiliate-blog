@@ -8,14 +8,19 @@
     <style>
       :root {
         color-scheme: light;
-        --begin-bg: #f8fafc;
-        --begin-ink: #0f172a;
+        --begin-bg: #f0f0f1;
+        --begin-panel: #fff;
+        --begin-border: #dcdcde;
+        --begin-ink: #1d2327;
         --begin-accent: #ea580c;
+        --begin-accent-dark: #c2410c;
       }
 
       body {
         margin: 0;
         background: var(--begin-bg);
+        color: var(--begin-ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       }
 
       body::before {
@@ -35,30 +40,25 @@
         box-shadow: 0 12px 30px rgb(15 23 42 / 18%);
       }
 
-      [class*="AppHeader"] {
+      [class*="AppHeader"],
+      [class*="Toolbar"] {
         background: var(--begin-ink) !important;
+        border-color: #000 !important;
+        box-shadow: 0 1px 0 rgb(0 0 0 / 24%) !important;
       }
 
       [class*="AppHeader"] a,
       [class*="AppHeader"] button,
-      [class*="AppHeader"] span {
+      [class*="AppHeader"] span,
+      [class*="Toolbar"] a,
+      [class*="Toolbar"] button,
+      [class*="Toolbar"] span {
         color: #fff !important;
-      }
-
-      [class*="AppHeader"]::before {
-        content: "Begin OS";
-        display: inline-flex;
-        align-items: center;
-        min-height: 48px;
-        margin-left: 18px;
-        color: #fff;
-        font: 900 18px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        letter-spacing: -.02em;
       }
 
       button,
       a {
-        border-radius: 8px !important;
+        border-radius: 4px !important;
       }
 
       [class*="Button"],
@@ -70,6 +70,39 @@
       button[type="submit"] {
         background: var(--begin-accent) !important;
         border-color: var(--begin-accent) !important;
+      }
+
+      [class*="Button"][class*="primary"]:hover,
+      button[type="submit"]:hover {
+        background: var(--begin-accent-dark) !important;
+        border-color: var(--begin-accent-dark) !important;
+      }
+
+      [class*="Sidebar"],
+      [class*="CollectionTop"],
+      [class*="CollectionMain"] {
+        border-color: var(--begin-border) !important;
+      }
+
+      input,
+      textarea,
+      select {
+        border-color: #8c8f94 !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--begin-accent) !important;
+        box-shadow: 0 0 0 1px var(--begin-accent) !important;
+      }
+
+      [class*="PreviewPane"],
+      [class*="PreviewCard"],
+      [class*="EditorPreview"] {
+        display: none !important;
       }
 
       a[href*="decap"],

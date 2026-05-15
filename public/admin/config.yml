@@ -13,9 +13,12 @@ display_url: Begin OS
 logo_url: /favicon.svg
 show_preview_links: true
 
+editor:
+  preview: false
+
 collections:
   - name: settings
-    label: Begin OS Settings
+    label: Settings
     files:
       - name: affiliate
         label: Site Design & Settings
@@ -63,7 +66,7 @@ collections:
             hint: "GA4 measurement ID, for example G-XXXXXXXXXX. Leave blank to disable Google Analytics."
 
   - name: guides
-    label: Begin OS Guides
+    label: Guides
     folder: content/guides
     create: true
     slug: "{{fields.slug}}"
