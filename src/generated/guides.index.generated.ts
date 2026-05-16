@@ -28,6 +28,123 @@ export const GENERATED_GUIDE_INDEX: PostIndex[] = [
     "author": "Michael Smith",
     "category": "Smart Home",
     "headerImage": "https://picsum.photos/seed/smarthome1/1200/600"
+  },
+  {
+    "id": "yoga-mat-near-me-guide",
+    "title": "Yoga Mat Near Me Guide",
+    "excerpt": "Compare yoga mat near me with a practical transactional SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "YogaMat Lab Editor",
+    "category": "Yoga Mats",
+    "headerImage": "https://api.together.ai/shrt/6FoMw3LBW2X6Grht"
+  },
+  {
+    "id": "coffee-ceramic-mug-guide",
+    "title": "Coffee Ceramic Mug Guide",
+    "excerpt": "Compare coffee ceramic mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-ceramic-mug-guide/1200/600"
+  },
+  {
+    "id": "ceramic-coffee-mug-guide",
+    "title": "Ceramic Coffee Mug Guide",
+    "excerpt": "Compare ceramic coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/ceramic-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "ceramics-coffee-mug-guide",
+    "title": "Ceramics Coffee Mug Guide",
+    "excerpt": "Compare ceramics coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/ceramics-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-and-mug-guide",
+    "title": "Coffee And Mug Guide",
+    "excerpt": "Compare coffee and mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-and-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-coffee-coffee-mug-guide",
+    "title": "Coffee Coffee Coffee Mug Guide",
+    "excerpt": "Compare coffee coffee coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-coffee-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-with-coffee-mug-guide",
+    "title": "Coffee With Coffee Mug Guide",
+    "excerpt": "Compare coffee with coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-with-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "a-coffee-mug-guide",
+    "title": "A Coffee Mug Guide",
+    "excerpt": "Compare a coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/a-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-coffee-mug-guide",
+    "title": "Coffee Coffee Mug Guide",
+    "excerpt": "Compare coffee coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-mug-guide",
+    "title": "Coffee Mug Guide",
+    "excerpt": "Compare coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-mug-guide/1200/600"
+  },
+  {
+    "id": "coffee-mug-coffee-guide",
+    "title": "Coffee Mug Coffee Guide",
+    "excerpt": "Compare coffee mug coffee with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/coffee-mug-coffee-guide/1200/600"
+  },
+  {
+    "id": "mug-and-coffee-guide",
+    "title": "Mug And Coffee Guide",
+    "excerpt": "Compare mug and coffee with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/mug-and-coffee-guide/1200/600"
+  },
+  {
+    "id": "customised-coffee-mug-guide",
+    "title": "Customised Coffee Mug Guide",
+    "excerpt": "Compare customised coffee mug with a practical informational SEO brief, decision criteria, FAQs, and publishing checks before you commit.",
+    "date": "2026-05-16",
+    "author": "Editorial Team",
+    "category": "coffee mug",
+    "headerImage": "https://picsum.photos/seed/customised-coffee-mug-guide/1200/600"
   }
 ];
 export const GENERATED_GUIDE_FAQS: Record<string, { question: string; answer: string }[]> = {
@@ -60,5 +177,18 @@ export const GENERATED_GUIDE_FAQS: Record<string, { question: string; answer: st
       "question": "What is the easiest device to start with?",
       "answer": "Smart plugs and LED smart bulbs are simple entry points. Smart thermostats can have a bigger impact but require compatibility checks."
     }
-  ]
+  ],
+  "yoga-mat-near-me-guide": [],
+  "coffee-ceramic-mug-guide": [],
+  "ceramic-coffee-mug-guide": [],
+  "ceramics-coffee-mug-guide": [],
+  "coffee-and-mug-guide": [],
+  "coffee-coffee-coffee-mug-guide": [],
+  "coffee-with-coffee-mug-guide": [],
+  "a-coffee-mug-guide": [],
+  "coffee-coffee-mug-guide": [],
+  "coffee-mug-guide": [],
+  "coffee-mug-coffee-guide": [],
+  "mug-and-coffee-guide": [],
+  "customised-coffee-mug-guide": []
 };
